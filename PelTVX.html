@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PEL TV — Молодёжный развлекательный канал</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0F;
+            color: #F0F0F8;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        :root {
+            --bg-dark: #0A0A0F;
+            --card-bg: #111115;
+            --glow-purple: #b87cff;
+            --accent-pink: #ff66c4;
+            --gradient: linear-gradient(135deg, #b87cff, #ff66c4);
+            --border-light: rgba(184, 124, 255, 0.2);
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            background: none;
+            color: white;
+        }
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Плеер */
+        .stream-section {
+            margin: 40px 0;
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 24px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+        .stream-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .stream-title i {
+            color: var(--accent-pink);
+            font-size: 1.8rem;
+        }
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        .player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .stream-note {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #aaa;
+            text-align: center;
+        }
+        /* Секции */
+        .section {
+            margin: 64px 0;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 5px solid var(--accent-pink);
+            padding-left: 18px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -12px rgba(184, 124, 255, 0.3);
+            border-color: var(--glow-purple);
+        }
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: linear-gradient(145deg, #1e1a2f, #0e0c18);
+            display: block;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: #bcbcbc;
+        }
+        .schedule-box {
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 24px;
+            border: 1px solid var(--border-light);
+        }
+        .schedule-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(184, 124, 255, 0.2);
+            font-size: 1rem;
+        }
+        .schedule-time {
+            min-width: 85px;
+            font-weight: 700;
+            color: var(--accent-pink);
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 20px;
+            border-left: 4px solid var(--glow-purple);
+            transition: 0.2s;
+        }
+        .news-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .footer {
+            margin-top: 80px;
+            background: #07070b;
+            border-top: 1px solid var(--border-light);
+            padding: 40px 0 30px;
+        }
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+        .social-buttons {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .btn-social {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gradient);
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0a0a0f;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+        .btn-social:hover {
+            transform: scale(1.03);
+            filter: brightness(1.05);
+            box-shadow: 0 0 12px rgba(255,102,196,0.5);
+        }
+        .copyright {
+            color: #6c6c7a;
+            font-size: 0.9rem;
+        }
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #111115;
+            max-width: 800px;
+            width: 100%;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid var(--glow-purple);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: #0c0c12;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .modal-header h3 {
+            font-size: 1.5rem;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .close-modal:hover {
+            color: var(--accent-pink);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        @media (max-width: 680px) {
+            .container {
+                padding: 0 18px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .programs-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .projects-grid {
+                gap: 16px;
+            }
+            .card-img {
+                height: 140px;
+            }
+            .card-title {
+                font-size: 1.2rem;
+            }
+            .btn-social {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .schedule-item {
+                font-size: 0.85rem;
+                flex-wrap: wrap;
+            }
+            .schedule-time {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">PEL<span style="color:white"> TV</span></div>
+        <div style="font-size: 0.9rem; color: #aaa;"><i class="fas fa-broadcast-tower"></i> 0–22 | Развлекательный</div>
+    </div>
+
+    <div class="hero">
+        <h1>Твой молодёжный канал</h1>
+        <p>Смотри онлайн. Будь в теме. Драйв, юмор и крутой контент каждый день 🔥</p>
+    </div>
+
+    <!-- █████████████████████████████████████████████████████████████████ -->
+    <!--  БЛОК СТРИМА (TWITCH) — НАСТРОЙТЕ ПОД СЕБЯ                         -->
+    <!-- █████████████████████████████████████████████████████████████████ -->
+    <div class="stream-section">
+        <div class="stream-title">
+            <i class="fab fa-twitch"></i>
+            <span>ПРЯМОЙ ЭФИР НА TWITCH</span>
+        </div>
+        <div class="player-wrapper">
+            <!-- 
+                ВАЖНО: Для работы на GitHub Pages нужно правильно указать parent.
+                Замените:
+                1) channel=ВАШ_КАНАЛ        — ваш ник на Twitch
+                2) parent=ВАШ_ЛОГИН.github.io — ваш логин GitHub (например, peltv)
+                Если вы используете собственный домен, укажите его вместо .github.io
+            -->
+            <iframe 
+                src="https://player.twitch.tv/?channel=НАЗВАНИЕ_КАНАЛА&parent=ВАШ_ЛОГИН.github.io&autoplay=false" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="stream-note">
+            <i class="fas fa-info-circle"></i> Сейчас в эфире: живой стрим. Не работает? Проверьте, что канал на Twitch активен и parent указан верно.
+        </div>
+    </div>
+
+    <!-- Проекты -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-star"></i> Проекты PEL</div>
+        <div class="projects-grid">
+            <div class="card" id="project-siland">
+                <img class="card-img" src="https://fakeimg.pl/600x400/8b5cf6/ffffff?text=СИЛЕНД&font=lobster" alt="Силенд">
+                <div class="card-content">
+                    <div class="card-title">Силенд</div>
+                    <div class="card-desc">Остров приключений, где реальность переплетается с фэнтези. Каждую субботу в 18:00.</div>
+                </div>
+            </div>
+            <div class="card" id="project-sealook">
+                <img class="card-img" src="https://fakeimg.pl/600x400/ff66c4/ffffff?text=SEALOOK+ТЮЛЕНЬКИ&font=lobster" alt="Тюленьки Sealook">
+                <div class="card-content">
+                    <div class="card-title">Тюленьки (Sealook)</div>
+                    <div class="card-desc">Милейшие тюлени и их весёлые истории. Уютное анимационное шоу для всей семьи.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Программы (клик – видео) -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-tv"></i> Программы</div>
+        <div class="programs-grid" id="programsGrid">
+            <div class="card program-card" data-program="Смешарики" data-video="jT4Uv9jJmW8">
+                <img class="card-img" src="https://fakeimg.pl/600x400/aa66ff/ffffff?text=СМЕШАРИКИ&font=lobster" alt="Смешарики">
+                <div class="card-content">
+                    <div class="card-title">Смешарики</div>
+                    <div class="card-desc">Круглые приключения. Умно, весело, душевно.</div>
+                </div>
+            </div>
+            <div class="card program-card" data-program="Барбоскины" data-video="iNBR7QK8OQY">
+                <img class="card-img" src="https://fakeimg.pl/600x400/ff66aa/ffffff?text=БАРБОСКИНЫ&font=lobster" alt="Барбоскины">
+                <div class="card-content">
+                    <div class="card-title">Барбоскины</div>
+                    <div class="card-desc">Семейные истории, музыка и юмор.</div>
+                </div>
+            </div>
+            <div class="card program-card" data-program="Миньоны" data-video="eisKxhjBnZ0">
+                <img class="card-img" src="https://fakeimg.pl/600x400/f9d56e/3c2a2a?text=МИНЬОНЫ&font=lobster" alt="Миньоны">
+                <div class="card-content">
+                    <div class="card-title">Миньоны</div>
+                    <div class="card-desc">Жёлтые балагуры и их галактические проделки.</div>
+                </div>
+            </div>
+            <div class="card program-card" data-program="Харви Бикс" data-video="D9k4P5b6LfU">
+                <img class="card-img" src="https://fakeimg.pl/600x400/7b2cbf/ffffff?text=ХАРВИ+БИКС&font=lobster" alt="Харви Бикс">
+                <div class="card-content">
+                    <div class="card-title">Харви Бикс</div>
+                    <div class="card-desc">Гиперреалистичный экшн и меха-приключения.</div>
+                </div>
+            </div>
+            <div class="card program-card" data-program="Игро.Клуб" data-video="l6pB6hU4zN4">
+                <img class="card-img" src="https://fakeimg.pl/600x400/3a0ca3/ffffff?text=ИГРО.КЛУБ&font=lobster" alt="Игро.Клуб">
+                <div class="card-content">
+                    <div class="card-title">Игро.Клуб</div>
+                    <div class="card-desc">Игровые обзоры, лайвы и киберспорт.</div>
+                </div>
+            </div>
+            <div class="card program-card" data-program="Wow Обзор" data-video="XyNl5yfRw9c">
+                <img class="card-img" src="https://fakeimg.pl/600x400/ff4d6d/ffffff?text=WOW+ОБЗОР&font=lobster" alt="Wow Обзор">
+                <div class="card-content">
+                    <div class="card-title">Wow Обзор</div>
+                    <div class="card-desc">Главные новости кино, игр и поп-культуры.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Расписание на 1 апреля -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-calendar-alt"></i> Расписание · 1 АПРЕЛЯ</div>
+        <div class="schedule-box">
+            <div class="schedule-item"><div class="schedule-time">15:00</div><div class="schedule-name">Новости PEL</div></div>
+            <div class="schedule-item"><div class="schedule-time">15:10</div><div class="schedule-name">Wow Обзор</div></div>
+            <div class="schedule-item"><div class="schedule-time">15:20</div><div class="schedule-name">Sealook (Тюленьки)</div></div>
+            <div class="schedule-item"><div class="schedule-time">15:25</div><div class="schedule-name">Харви Бикс</div></div>
+            <div class="schedule-item"><div class="schedule-time">15:45</div><div class="schedule-name">Игро.Клуб</div></div>
+            <div class="schedule-item"><div class="schedule-time">15:50</div><div class="schedule-name">Новости PEL</div></div>
+            <div class="schedule-item"><div class="schedule-time">16:00</div><div class="schedule-name">Смешарики</div></div>
+            <div class="schedule-item"><div class="schedule-time">16:30</div><div class="schedule-name">Sealook (Тюленьки)</div></div>
+            <div class="schedule-item"><div class="schedule-time">16:45</div><div class="schedule-name">Wow Обзор</div></div>
+            <div class="schedule-item"><div class="schedule-time">17:00</div><div class="schedule-name"><strong>Конец эфира</strong></div></div>
+        </div>
+        <div style="margin-top: 16px; font-size: 0.85rem; color: #b87cff;"><i class="fab fa-twitter"></i> #PELTV_1апреля — следите за твитч-трансляциями!</div>
+    </div>
+
+    <!-- Новости -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-newspaper"></i> Новости канала</div>
+        <div class="news-grid">
+            <div class="news-card">
+                <h3><i class="fas fa-broadcast-tower"></i> Официальное открытие PEL TV!</h3>
+                <p>С 1 апреля 2026 года телеканал PEL TV начинает круглосуточное вещание. Молодёжный контент, аниме, топ-шоу и собственные проекты — всё в одном месте. Присоединяйся к семье PEL!</p>
+            </div>
+            <div class="news-card">
+                <h3><i class="fas fa-code-branch"></i> ПинКод 2.0 — технологичное возвращение!</h3>
+                <p>Любимый проект "ПинКод" возвращается во втором сезоне! Новые ведущие, IT-приключения, геймдизайн и робототехника. Премьера 10 апреля в 17:30. Не пропустите!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer-inner">
+        <div class="copyright">© 2026 HitMake. Все права защищены.</div>
+        <div class="social-buttons">
+            <a href="https://t.me/peltv" target="_blank" class="btn-social"><i class="fab fa-telegram"></i> Telegram</a>
+            <a href="https://max.ru/join/SsDTsPCWcyKaVMU7F3sS1CSHGeJEE-j_zgMbxfkb3TU" target="_blank" class="btn-social"><i class="fas fa-user-plus"></i> Max</a>
+        </div>
+        <div style="display: flex; gap: 20px;">
+            <a href="#" style="color:#aaa; text-decoration:none;">О канале</a>
+            <a href="#" style="color:#aaa; text-decoration:none;">Контакты</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Модальное окно для видео программ -->
+<div id="videoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalProgramTitle">Название программы</h3>
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="video-container" id="videoContainer">
+            <iframe id="programVideoFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Модальное окно для видео
+    const modal = document.getElementById('videoModal');
+    const modalTitle = document.getElementById('modalProgramTitle');
+    const videoFrame = document.getElementById('programVideoFrame');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function getVideoUrl(programName, videoId) {
+        if (videoId) {
+            return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        }
+        return `https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1`;
+    }
+
+    function openModal(programName, videoId) {
+        const videoUrl = getVideoUrl(programName, videoId);
+        videoFrame.src = videoUrl;
+        modalTitle.innerText = programName;
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModalFunc() {
+        modal.style.display = "none";
+        videoFrame.src = "";
+        document.body.style.overflow = "auto";
+    }
+
+    document.querySelectorAll('.program-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const programName = card.getAttribute('data-program');
+            const videoId = card.getAttribute('data-video');
+            if (programName) openModal(programName, videoId);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeModalFunc);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModalFunc(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.style.display === 'flex') closeModalFunc(); });
+
+    // Титульная карточка для проекта Силенд
+    const firstProject = document.querySelector('#project-siland');
+    if(firstProject) {
+        firstProject.style.border = '1px solid #ff66c4';
+        firstProject.style.boxShadow = '0 0 12px rgba(255,102,196,0.3)';
+    }
+</script>
+</body>
+</html>
